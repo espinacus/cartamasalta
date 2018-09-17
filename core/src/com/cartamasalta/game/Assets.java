@@ -19,10 +19,8 @@ public class Assets {
         background = new TextureRegion(loadTexture("data/background.png"), 0, 0, 320, 480);
         cards = loadTexture("data/cards.png");
         cardBack = new TextureRegion(cards, 208, 319 * 4, 208, 319);
-
         down = new TextureRegion(loadTexture("data/down.png"), 0, 0, 512, 512);
         up = new TextureRegion(loadTexture("data/down.png"), 0, 0, 512, 512);
         up.flip(false, true);
-
     }
 }

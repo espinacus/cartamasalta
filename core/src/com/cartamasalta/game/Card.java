@@ -8,7 +8,7 @@ public class Card {
     boolean upValue;
     TextureRegion image;
 
-    public Card(){
+    public Card() {
         position = new Rectangle(App.WIDTH / 2 - App.CARD_WIDTH / 2, App.HEIGHT - App.CARD_HEIGHT - 50, App.CARD_WIDTH, App.CARD_HEIGHT);
         image = Assets.cardBack;
     }

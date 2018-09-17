@@ -12,20 +12,17 @@ import com.badlogic.gdx.math.Vector3;
 
 public class GameScreen extends ScreenAdapter {
 
-    App app;
-    OrthographicCamera guiCam;
-    Rectangle deckPosition;
-    Rectangle upLocation;
-    Rectangle downLocation;
-
-    Vector3 touchPoint;
-    Deck deck;
-    Card myCard;
-
-    BitmapFont font;
-
-    boolean upAction;
-    String message;
+    private final App app;
+    private final OrthographicCamera guiCam;
+    private final Rectangle deckPosition;
+    private final Rectangle upLocation;
+    private final Rectangle downLocation;
+    private final Vector3 touchPoint;
+    private final Deck deck;
+    private final BitmapFont font;
+    private boolean upAction;
+    private Card myCard;
+    private String message;
 
     public GameScreen(App app) {
         this.app = app;
@@ -79,7 +76,7 @@ public class GameScreen extends ScreenAdapter {
         }
         app.batch.end();
 
-        if (message!= null){
+        if (message != null) {
             app.batch.begin();
             font.setColor(Color.BLUE);
             font.draw(app.batch, message, 100, 290);
