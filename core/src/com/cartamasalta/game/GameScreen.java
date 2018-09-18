@@ -15,8 +15,8 @@ public class GameScreen extends ScreenAdapter {
     private final App app;
     private final OrthographicCamera guiCam;
     private final Rectangle deckPosition;
-    private final Rectangle upLocation;
-    private final Rectangle downLocation;
+    private final Button up;
+    private final Button down;
     private final Vector3 touchPoint;
     private final Deck deck;
     private final BitmapFont font;
@@ -32,9 +32,9 @@ public class GameScreen extends ScreenAdapter {
         font = new BitmapFont();
         touchPoint = new Vector3();
 
-        deckPosition = new Rectangle(App.WIDTH / 2 - App.CARD_WIDTH / 2, App.HEIGHT - App.CARD_HEIGHT - 50, App.CARD_WIDTH, App.CARD_HEIGHT);
-        upLocation = new Rectangle(50, 30, 80, 80);
-        downLocation = new Rectangle(App.WIDTH - 50 - 80, 30, 80, 80);
+        deckPosition = Deck.position;
+        up = new Button(Assets.up, new Rectangle(50, 30, 80, 80));
+        down = new Button(Assets.down, new Rectangle(App.WIDTH - 50 - 80, 30, 80, 80));
 
         deck = new Deck();
         deck.initDeck(Assets.cards);
@@ -55,24 +55,13 @@ public class GameScreen extends ScreenAdapter {
         app.batch.enableBlending();
         app.batch.begin();
         app.batch.draw(Assets.background, 0, 0, App.WIDTH, App.HEIGHT);
-        app.batch.draw(Assets.up, upLocation.x, upLocation.y, upLocation.width, upLocation.height);
-        app.batch.draw(Assets.down, downLocation.x, downLocation.y, downLocation.width, downLocation.height);
+        app.batch.draw(up.getImage(), up.getPosition().x, up.getPosition().y, up.getPosition().width, up.getPosition().height);
+        app.batch.draw(down.getImage(), down.getPosition().x, down.getPosition().y, down.getPosition().width, down.getPosition().height);
 
         app.batch.draw(Assets.cardBack, deckPosition.x, deckPosition.y, deckPosition.width, deckPosition.height);
 
         if (myCard != null) {
-            TextureRegion image = Assets.cardBack;
-            if (myCard.position.y > 130) {
-                myCard.position.y = myCard.position.y - 4;
-            } else {
-                image = myCard.image;
-                if (myCard.upValue == upAction) {
-                    message = " You won!";
-                } else {
-                    message = "  Loser! ";
-                }
-            }
-            app.batch.draw(image, myCard.position.x, myCard.position.y, myCard.position.width, myCard.position.height);
+            playingCard();
         }
         app.batch.end();
 
@@ -86,16 +75,41 @@ public class GameScreen extends ScreenAdapter {
 
     }
 
+    private void playingCard() {
+        TextureRegion image = Assets.cardBack;
+        if (!isAnimationEnded()) {
+            myCard.getPosition().y = myCard.getPosition().y - 4;
+        } else {
+            // Movement is done, show card
+            image = myCard.getImage();
+            if (myCard.isUpValue() == upAction) {
+                message = " You won!";
+            } else {
+                message = "  Loser! ";
+            }
+            // Reset buttons
+            up.setImage(Assets.up);
+            down.setImage(Assets.down);
+        }
+        app.batch.draw(image, myCard.getPosition().x, myCard.getPosition().y, myCard.getPosition().width, myCard.getPosition().height);
+    }
+
+    private boolean isAnimationEnded() {
+        return myCard.getPosition().y < 130;
+    }
+
     private void update() {
-        if (Gdx.input.justTouched()) {
+        if (Gdx.input.justTouched() && (myCard == null || isAnimationEnded())) {
             guiCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 
-            if (upLocation.contains(touchPoint.x, touchPoint.y)) {
+            if (up.getPosition().contains(touchPoint.x, touchPoint.y)) {
                 takeCard();
                 upAction = true;
-            } else if (downLocation.contains(touchPoint.x, touchPoint.y)) {
+                up.setImage(Assets.upSelected);
+            } else if (down.getPosition().contains(touchPoint.x, touchPoint.y)) {
                 takeCard();
                 upAction = false;
+                down.setImage(Assets.downSelected);
             }
         }
     }
@@ -103,7 +117,7 @@ public class GameScreen extends ScreenAdapter {
     private void takeCard() {
         message = null;
         myCard = deck.cards.get(0);
-        myCard.position = new Rectangle(deckPosition.x, deckPosition.y, deckPosition.width, deckPosition.height);
+        myCard.setPosition(new Rectangle(deckPosition.x, deckPosition.y, deckPosition.width, deckPosition.height));
         deck.shuffle();
     }
 }
