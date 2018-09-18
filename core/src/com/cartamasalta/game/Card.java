@@ -4,12 +4,32 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Card {
-    Rectangle position;
-    boolean upValue;
-    TextureRegion image;
 
-    public Card() {
-        position = new Rectangle(App.WIDTH / 2 - App.CARD_WIDTH / 2, App.HEIGHT - App.CARD_HEIGHT - 50, App.CARD_WIDTH, App.CARD_HEIGHT);
-        image = Assets.cardBack;
+    public static final int CARD_WIDTH = 80;
+    public static final int CARD_HEIGHT = 128;
+
+    private Rectangle position;
+    private boolean upValue;
+    private TextureRegion image;
+
+    public Card(TextureRegion image, boolean upValue) {
+        this.image = image;
+        this.upValue = upValue;
+    }
+
+    public boolean isUpValue() {
+        return upValue;
+    }
+
+    public TextureRegion getImage() {
+        return image;
+    }
+
+    public Rectangle getPosition() {
+        return position;
+    }
+
+    public void setPosition(Rectangle position) {
+        this.position = position;
     }
 }
