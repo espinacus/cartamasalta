@@ -13,7 +13,7 @@ public class Assets {
     public static TextureRegion upSelected;
     public static TextureRegion downSelected;
 
-    public static Texture loadTexture(String file) {
+    private static Texture loadTexture(String file) {
         return new Texture(Gdx.files.internal(file));
     }
 
