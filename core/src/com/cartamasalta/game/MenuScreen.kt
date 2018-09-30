@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector3
+import com.cartamasalta.game.domain.Button
 
 class MenuScreen(private val app: App) : ScreenAdapter() {
     private val camera = OrthographicCamera(App.WIDTH.toFloat(), App.HEIGHT.toFloat())

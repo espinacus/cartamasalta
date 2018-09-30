@@ -1,8 +1,9 @@
-package com.cartamasalta.game;
+package com.cartamasalta.game.domain;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.cartamasalta.game.App;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +28,10 @@ public class Deck {
             }
         }
         shuffle();
+    }
+
+    public ArrayList<Card> getCards() {
+        return cards;
     }
 
     public void shuffle() {
