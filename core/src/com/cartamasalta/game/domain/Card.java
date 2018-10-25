@@ -1,16 +1,18 @@
-package com.cartamasalta.game;
+package com.cartamasalta.game.domain;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.cartamasalta.game.Assets;
 
 public class Card {
 
     public static final int CARD_WIDTH = 80;
     public static final int CARD_HEIGHT = 128;
 
-    private Rectangle position;
     private boolean upValue;
-    private TextureRegion image;
+    private TextureRegion image = Assets.cardBack;
+
+    public Card() {}
 
     public Card(TextureRegion image, boolean upValue) {
         this.image = image;
@@ -23,13 +25,5 @@ public class Card {
 
     public TextureRegion getImage() {
         return image;
-    }
-
-    public Rectangle getPosition() {
-        return position;
-    }
-
-    public void setPosition(Rectangle position) {
-        this.position = position;
     }
 }

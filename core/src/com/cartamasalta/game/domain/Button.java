@@ -1,4 +1,4 @@
-package com.cartamasalta.game;
+package com.cartamasalta.game.domain;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
