@@ -12,6 +12,7 @@ public class Assets {
     public static TextureRegion down;
     public static TextureRegion upSelected;
     public static TextureRegion downSelected;
+    public static TextureRegion playButton;
 
     private static Texture loadTexture(String file) {
         return new Texture(Gdx.files.internal(file));
@@ -29,5 +30,6 @@ public class Assets {
         downSelected = new TextureRegion(loadTexture("data/down-blue.png"), 0, 0, 512, 512);
         upSelected = new TextureRegion(loadTexture("data/down-blue.png"), 0, 0, 512, 512);
         upSelected.flip(false, true);
+        playButton = new TextureRegion(loadTexture("data/play.png"), 500, 230);
     }
 }

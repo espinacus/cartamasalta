@@ -14,6 +14,6 @@ public class App extends Game {
     public void create() {
         batch = new SpriteBatch();
         Assets.load();
-        setScreen(new GameScreen(this));
+        setScreen(new MenuScreen(this));
     }
 }
